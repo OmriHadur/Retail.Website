@@ -1,0 +1,32 @@
+<div>
+  <button
+    *ngIf="getQuantity() === 0 && showAddRemove; else updateQuantity"
+    (click)="addtoCart()"
+    class="btn btn-secondary btn-block"
+  >
+    Add to cart
+  </button>
+  <ng-template #updateQuantity>
+    <div class="row">
+      <div class="col-1"></div>
+      <button
+        *ngIf="showAddRemove"
+        (click)="removeOneFromCart()"
+        class="btn btn-secondary btn-block col-2"
+      >
+        -
+      </button>
+      <div class="quantity col">
+        {{ getQuantityDisplay() }}
+      </div>
+      <button
+        *ngIf="showAddRemove"
+        (click)="addOneToCart()"
+        class="btn btn-secondary btn-block col-2"
+      >
+        +
+      </button>
+      <div class="col-1"></div>
+    </div>
+  </ng-template>
+</div>

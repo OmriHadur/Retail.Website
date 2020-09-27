@@ -1,0 +1,81 @@
+<table class="table" *ngIf="cart">
+  <thead>
+    <tr>
+      <th class="deleteTitle"></th>
+      <th class="text-center quantityTitle">Quantity</th>
+      <th></th>
+      <th>Product</th>
+      <th>Size</th>
+      <th class="text-right">Price per item</th>
+      <th class="text-right priceTitle">Price</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let keyValue of cart.items | groupBy: 'categoryName'">
+    <td class="categoryTitle" colspan="7">{{ keyValue.key }}</td>
+
+    <tr
+      *ngFor="let cartItem of keyValue.value"
+      [className]="hovering == cartItem ? 'hover' : ''"
+      (mouseenter)="hovering = cartItem"
+      (mouseleave)="hovering = null"
+    >
+      <td>
+        <button *ngIf="hovering == cartItem && showAddRemove" class="btn btn-warning" (click)="removeItem(cartItem)">
+            X
+        </button>
+      </td>
+      <td>
+        <product-quantity
+          [cart]="cart"
+          [productId]="cartItem.id"
+          [showAddRemove]="hovering == cartItem && showAddRemove"
+        ></product-quantity>
+      </td>
+      <td>
+        <div
+          [routerLink]="['/product/' + cartItem.id]"
+          [style.backgroundImage]="'url(' + cartItem.imageUrl + ')'"
+          class="thumbnail link"
+        ></div>
+      </td>
+      <td class="link" [routerLink]="['/product/' + cartItem.id]">
+        {{ cartItem.description }}
+      </td>
+      <td>
+        {{ cartItem.sizeDisplay }}
+      </td>
+      <td class="text-right">
+        {{ cartItem.itemPrice.pricePerItem | currency: 'USD':'symbol' }}
+      </td>
+      <td class="text-right">
+        <price-display [price]="cartItem.itemPrice"></price-display>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="totalsTitle">
+      <th></th>
+      <th class="text-center">
+        Total Quantity
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th class="text-right">Total Price</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th class="text-center" *ngIf="cart">
+        {{ cart.quantity }}
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th class="text-right" *ngIf="cart">
+        <price-display [price]="cart.cartPrice"></price-display>
+      </th>
+    </tr>
+  </tfoot>
+</table>

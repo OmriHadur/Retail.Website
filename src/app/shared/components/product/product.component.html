@@ -1,0 +1,15 @@
+<div class="row" *ngIf="product">
+  <div class="col-md-6">
+    <h5>{{ product.companyName }}</h5>
+    <h5>{{ product.sizeDisplay }}</h5>
+    <h2>{{ product.description }}</h2>
+    <h3>{{ product.price | currency: 'USD':'symbol' }}</h3>
+    <product-quantity [productId]="product.id"></product-quantity>
+  </div>
+  <div class="col-md-6">
+    <div
+      [style.backgroundImage]="'url(' + product.imageUrl + ')'"
+      class="thumbnail"
+    ></div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.list-group-item-info {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.disabled {
+  background-color: lightgray;
+}

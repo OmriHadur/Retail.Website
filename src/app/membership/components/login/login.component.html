@@ -1,0 +1,49 @@
+<form #f="ngForm" class="form-signin" style="text-align: center;">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <input
+    type="email"
+    #email="ngModel"
+    [(ngModel)]="createLoginResource.email"
+    name="email"
+    class="form-control"
+    placeholder="Email address"
+    required
+    email
+    autofocus
+    [ngClass]="{ 'is-invalid': email.touched && email.invalid }"
+  />
+  <div class="invalid-feedback" *ngIf="email.touched && email.invalid">
+    Email is required
+  </div>
+
+  <input
+    type="password"
+    #password="ngModel"
+    [(ngModel)]="createLoginResource.password"
+    name="password"
+    class="form-control"
+    placeholder="Password"
+    required
+    [ngClass]="{ 'is-invalid': password.touched && password.invalid }"
+  />
+  <div class="invalid-feedback" *ngIf="password.touched && password.invalid">
+    Password is required
+  </div>
+
+  <div class="invalid" *ngIf="unauthorizedError">
+    Wrong user\password
+  </div>
+  <button
+    [disabled]="!f.valid"
+    class="btn btn-lg btn-primary btn-block"
+    (click)="login()"
+    type="submit"
+  >
+    Sign in
+  </button>
+  <div class="row">
+    <div class="col-4">no user?</div>
+    <button class="btn btn-sm btn-primary col-8" (click)="register()">Register</button>
+  </div>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+</form>

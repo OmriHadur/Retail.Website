@@ -1,0 +1,27 @@
+<div *ngIf="order && user">
+  <h1>Order: {{ order.id }}</h1>
+
+  <h2>{{ order.created | date: "dd/MM/yyyy HH:mm" }}</h2>
+  <h4 *ngIf="order.customer.address as address">
+    Address: {{ address.city }}, {{ address.street }} ,
+    {{ address.houseNumber }}, {{ address.zip }}
+  </h4>
+  <h4>Customer: {{ user.firstName }} {{ user.lastName }} {{ user.email }}</h4>
+  <h4>
+    Delivery: on {{ order.deliveryWindow.date | date: "shortDate" }} between
+    {{ order.deliveryWindow.fromHour }}:00 to
+    {{ order.deliveryWindow.toHour }}:00
+  </h4>
+  <h4>Status: {{ order.status }}</h4>
+  <div class="col-10">
+    <admin-order-items [order]="order"></admin-order-items>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    *ngIf="order.status =='Pending'"
+    (click)="markAsShipped()"
+  >
+    Mark as shipped
+  </button>
+</div>

@@ -1,0 +1,24 @@
+<h1>Shopping cart</h1>
+
+<p>You have {{ cart ? cart.quantity : 0 }} items in your shopping cart</p>
+
+<cart-items class="middle" [cart]="cart"></cart-items>
+
+<div class="row">
+  <div class="col-1"></div>
+  <a
+    routerLink="/check-out"
+    *ngIf="cart && cart.quantity"
+    class="btn btn-primary col-3"
+    >Check out</a
+  >
+  <div class="col-4"></div>
+  <button
+    (click)="clear()"
+    *ngIf="cart && cart.quantity"
+    class="btn btn-light col-3"
+  >
+    Clear shopping cart
+  </button>
+  <div class="col-1"></div>
+</div>

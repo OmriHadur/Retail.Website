@@ -1,0 +1,23 @@
+<div class="card" *ngIf="product.description">
+  <div
+    [routerLink]="['/product/' + product.id]"
+    [style.backgroundImage]="'url(' + product.imageUrl + ')'"
+    class="thumbnail"
+  ></div>
+  <div class="card-body">
+    <label class="companyName">{{ product.companyName }}</label>
+
+    <label class="card-title description">{{ product.description }}</label>
+    <div class="row">
+      <label class="size"
+        >{{ product.sizeDisplay }}</label
+      >
+    </div>
+    <div class="row">
+      <label class="price">{{ product.price | currency: 'USD':'symbol' }}</label>
+    </div>
+    <div *ngIf="showActions">
+      <product-quantity [productId]="product.id"></product-quantity>
+    </div>
+  </div>
+</div>

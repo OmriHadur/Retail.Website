@@ -1,0 +1,25 @@
+<div class="row" *ngIf="department">
+  <div class="col-4">
+    <departments-side-bar [selected]="department.id"></departments-side-bar>
+  </div>
+  <div class="col-1"></div>
+  <div class="col-7">
+    <div class="row">
+      <div class="list-group col-3" *ngFor="let family of department.families">
+        <div class="list-group-flush family">
+          {{ family.name }}
+        </div>
+        <div class="seperator"></div>
+        <div *ngFor="let category of family.categories">
+          <div
+            routerLink="/products"
+            [queryParams]="{ category: category.id }"
+            class="list-group-flush category"
+          >
+            {{ category.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

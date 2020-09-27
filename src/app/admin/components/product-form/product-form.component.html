@@ -1,0 +1,241 @@
+<div class="row" *ngIf="product">
+  <div class="col-md-6">
+    <form #f="ngForm">
+      <label for="description">Description</label>
+      <input
+        type="string"
+        #description="ngModel"
+        [(ngModel)]="product.description"
+        name="description"
+        class="form-control"
+        required
+        [ngClass]="{ 'is-invalid': description.touched && description.invalid }"
+      />
+      <div
+        *ngIf="description.invalid && description.touched"
+        class="alert alert-danger"
+      >
+        <div *ngIf="description.errors.required">
+          Description is required.
+        </div>
+      </div>
+
+      <label for="companyName">Company Name</label>
+      <input
+        type="string"
+        #companyName="ngModel"
+        [(ngModel)]="product.companyName"
+        name="companyName"
+        class="form-control"
+        required
+        [ngClass]="{ 'is-invalid': companyName.touched && companyName.invalid }"
+      />
+      <div
+        *ngIf="companyName.invalid && companyName.touched"
+        class="alert alert-danger"
+      >
+        <div *ngIf="companyName.errors.required">
+          Company Name is required.
+        </div>
+      </div>
+
+      <label for="barcode">Barcode</label>
+      <input
+        type="string"
+        #barcode="ngModel"
+        [(ngModel)]="product.barcode"
+        name="barcode"
+        class="form-control"
+        required
+        minlength="13"
+        [ngClass]="{ 'is-invalid': barcode.touched && barcode.invalid }"
+      />
+      <div
+        *ngIf="barcode.invalid && barcode.touched"
+        class="alert alert-danger"
+      >
+        <div *ngIf="barcode.errors.required">
+          Barcode is required.
+        </div>
+        <div *ngIf="barcode.errors.minlength">
+          Barcode must be at least 13 characters long.
+        </div>
+      </div>
+
+      <label for="price">Price</label>
+      <input
+        type="number"
+        #price="ngModel"
+        [(ngModel)]="product.price"
+        name="price"
+        class="form-control"
+        required
+        number
+        min="0"
+        max="100"
+        [ngClass]="{ 'is-invalid': price.touched && price.invalid }"
+      />
+      <div *ngIf="price.invalid && price.touched" class="alert alert-danger">
+        <div *ngIf="price.errors.required">
+          Price is required.
+        </div>
+        <div *ngIf="price.errors.min">
+          Price must be at least 0.
+        </div>
+        <div *ngIf="price.errors.max">
+          Price must be less or equal to 100.
+        </div>
+      </div>
+
+      <label for="size">Size</label>
+      <input
+        type="number"
+        #size="ngModel"
+        [(ngModel)]="product.size"
+        name="size"
+        class="form-control"
+        required
+        number
+        min="1"
+        max="10000"
+        [ngClass]="{ 'is-invalid': size.touched && size.invalid }"
+      />
+      <div *ngIf="size.invalid && size.touched" class="alert alert-danger">
+        <div *ngIf="size.errors.required">
+          Size is required.
+        </div>
+        <div *ngIf="size.errors.min">
+          Size must be at least 1.
+        </div>
+        <div *ngIf="size.errors.max">
+          Size must be less then 10000.
+        </div>
+      </div>
+
+      <label for="quantityInterval">Quantity Interval</label>
+      <input
+        type="number"
+        #quantityInterval="ngModel"
+        [(ngModel)]="product.quantityInterval"
+        name="quantityInterval"
+        class="form-control"
+        required
+        number
+        min="1"
+        max="1000"
+        [ngClass]="{
+          'is-invalid': quantityInterval.touched && quantityInterval.invalid
+        }"
+      />
+      <div
+        *ngIf="quantityInterval.invalid && quantityInterval.touched"
+        class="alert alert-danger"
+      >
+        <div *ngIf="quantityInterval.errors.required">
+          Quantity Interval is required.
+        </div>
+        <div *ngIf="quantityInterval.errors.min">
+          Quantity Interval must be at least 1.
+        </div>
+        <div *ngIf="quantityInterval.errors.max">
+          Quantity Interval must be less or equal to 1000.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select
+          #category="ngModel"
+          [(ngModel)]="product.categoryName"
+          name="category"
+          id="category"
+          class="form-control"
+          required
+          (change)="onCategoryChange($event.target.value)"
+          [ngClass]="{ 'is-invalid': category.touched && category.invalid }"
+        >
+          <option value=""></option>
+          <option *ngFor="let c of categories" [value]="c.name">
+            {{ c.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="category.touched && category.invalid"
+          class="alert alert-danger"
+        >
+          <div *ngIf="category.errors.required">
+            Category is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subcategory">Sub Category</label>
+        <select
+          #subcategory="ngModel"
+          [(ngModel)]="product.subCategoryId"
+          name="subcategory"
+          id="subcategory"
+          class="form-control"
+          required
+          [ngClass]="{
+            'is-invalid': subcategory.touched && subcategory.invalid
+          }"
+        >
+          <option value=""></option>
+          <option *ngFor="let c of subcategories$ | async" [value]="c.id">
+            {{ c.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="subcategory.touched && subcategory.invalid"
+          class="alert alert-danger"
+        >
+          <div *ngIf="subcategory.errors.required">
+            Sub category is required.
+          </div>
+        </div>
+      </div>
+
+      <label for="image">Image</label>
+      <input
+        type="string"
+        #image="ngModel"
+        [(ngModel)]="product.imageUrl"
+        name="image"
+        class="form-control"
+        required
+        url
+        [ngClass]="{ 'is-invalid': image.touched && image.invalid }"
+      />
+      <div *ngIf="image.touched && image.invalid" class="alert alert-danger">
+        <div *ngIf="image.errors.required">
+          Image is required.
+        </div>
+        <div *ngIf="image.errors.url">
+          Image is invalid url
+        </div>
+      </div>
+      <div class="row buttons">
+        <button
+          class="btn btn-primary col-3"
+          (click)="save()"
+          [disabled]="!f.valid || isBusy"
+        >
+          Save
+        </button>
+        <div class="col"></div>
+        <button
+          class="btn btn-danger col-3"
+          (click)="delete()"
+          [disabled]="isBusy"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <product-card [product]="product" [show-actions]="false"></product-card>
+  </div>
+</div>

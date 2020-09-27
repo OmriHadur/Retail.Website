@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">Boinot Yiitan</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/shopping-cart"
+          >Shopping cart
+          <span class="badge badge-warning badge-fill">{{
+            cart ? cart.quantity : 0
+          }}</span>
+        </a>
+      </li>
+      <div class="form-inline">
+        <input
+          type="string"
+          [(ngModel)]="searchValue"
+          class="form-control mr-sm-2"
+          placeholder="Search in Boinot Yiitan"
+          (keyup.enter)="search()"
+        />
+        <button
+          class="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+          (click)="search()"
+        >
+          Search
+        </button>
+      </div>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav col-2">
+        <ng-template #annonymosUser>
+          <li class="nav-item clickble">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item clickble">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+        </ng-template>
+        <li
+          ngbDropdown
+          *ngIf="user; else annonymosUser"
+          class="nav-item dropdown"
+        >
+          <a
+            ngbDropdownToggle
+            class="nav-link dropdown-toggle clickble"
+            id="dropdown01"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Welcome {{ user.firstName }}
+          </a>
+          <div
+            ngbDropdownMenu
+            class="dropdown-menu"
+            aria-labelledby="dropdown01"
+          >
+            <a class="dropdown-item" routerLink="/my-orders">My Orders</a>
+            <ng-container *ngIf="user.isAdmin">
+              <a class="dropdown-item" routerLink="/admin/pending"
+                >Pending Orders</a
+              >
+              <a class="dropdown-item" routerLink="/admin/orders"
+                >Manage Orders</a
+              >
+              <a class="dropdown-item" routerLink="/admin/products"
+                >Manage Products</a
+              >
+            </ng-container>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

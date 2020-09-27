@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-5">
+    <h2 class="text-center">Shipping address</h2>
+    <form #f="ngForm">
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="string"
+          #city="ngModel"
+          [(ngModel)]="address.city"
+          [disabled]="order"
+          name="city"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': city.touched && city.invalid }"
+        />
+        <div *ngIf="city.touched && city.invalid" class="alert alert-danger">
+          <div *ngIf="city.errors.required">
+            City is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input
+          type="string"
+          #street="ngModel"
+          [(ngModel)]="address.street"
+          name="street"
+          class="form-control"
+          required
+          [ngClass]="{ 'is-invalid': street.touched && street.invalid }"
+        />
+        <div
+          *ngIf="street.touched && street.invalid"
+          class="alert alert-danger"
+        >
+          <div *ngIf="street.errors.required">
+            Street is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="houseNumber">House Number</label>
+        <input
+          type="number"
+          #houseNumber="ngModel"
+          [(ngModel)]="address.houseNumber"
+          name="houseNumber"
+          class="form-control"
+          required
+          min="0"
+          max="1000"
+          [ngClass]="{
+            'is-invalid': houseNumber.touched && houseNumber.invalid
+          }"
+        />
+        <div
+          *ngIf="houseNumber.touched && houseNumber.invalid"
+          class="alert alert-danger"
+        >
+          <div *ngIf="houseNumber.errors.required">
+            House Number is required.
+          </div>
+          <div *ngIf="houseNumber.errors.min">
+            House Number must be at least 0.
+          </div>
+          <div *ngIf="houseNumber.errors.max">
+            House Number maximum is 1000.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="zip">Zip</label>
+        <input
+          type="number"
+          #zip="ngModel"
+          [(ngModel)]="address.zip"
+          name="zip"
+          class="form-control"
+          required
+          min="10000"
+          [ngClass]="{ 'is-invalid': zip.touched && zip.invalid }"
+        />
+        <div *ngIf="zip.touched && zip.invalid" class="alert alert-danger">
+          <div *ngIf="zip.errors.required">
+            Zip is required.
+          </div>
+          <div *ngIf="zip.errors.min">
+            Zip must be at least 5 characters long.
+          </div>
+        </div>
+      </div>
+      <button
+        [disabled]="!f.valid || busy || !deliveryWindowId"
+        (click)="placeOrder()"
+        class="btn btn-primary col-4"
+      >
+        {{ order ? "Update" : "Place" }} Order
+      </button>
+    </form>
+  </div>
+  <div class="col-1"></div>
+  <div class="col-6">
+    <h2 class="text-center">Delivery time</h2>
+    <delivery-windows
+      [selected]="order ? order.deliveryWindow.id : ''"
+      (selectdChange)="selectdChange($event)"
+    ></delivery-windows>
+  </div>
+</div>

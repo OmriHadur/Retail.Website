@@ -1,0 +1,33 @@
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background-size: cover;
+}
+.hover {
+  background-color: skyblue;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.categoryTitle {
+  text-align: center;
+  background-color: rgb(233, 233, 233);
+}
+.quantityTitle {
+  width: 300px;
+}
+
+.totalsTitle {
+  background-color: rgb(233, 233, 233);
+}
+
+.deleteTitle{
+  width: 60px;
+}
+
+.priceTitle{
+  width: 180px;
+}

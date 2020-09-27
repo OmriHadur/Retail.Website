@@ -1,0 +1,11 @@
+.clickble{
+    cursor: pointer;
+}
+input{
+    margin-left: 50px;
+    width: 400px;
+}
+.navbar{
+    padding-left: 100px;
+    padding-right: 100px;
+}

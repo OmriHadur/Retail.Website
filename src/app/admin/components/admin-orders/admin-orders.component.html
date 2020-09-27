@@ -1,0 +1,39 @@
+<table class="table .table-striped">
+  <thead>
+    <tr>
+      <th>Time and Date</th>
+      <th>Customer</th>
+      <th>City</th>
+      <th>Address</th>
+      <th *ngIf="showStatus" style="width: 200px;">
+        Status
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      [className]="hovering == order ? 'hover' : ''"
+      [routerLink]="['/admin/order/' + order.id]"
+      (mouseenter)="hovering = order"
+      (mouseleave)="hovering = null"
+      *ngFor="let order of orders"
+    >
+      <td>
+        {{ order.created | date: "dd/MM/yyyy HH:mm" }}
+      </td>
+      <td>
+        {{ order.customer.fullName }}
+      </td>
+      <td>
+        {{ order.customer.address.city }}
+      </td>
+      <td>
+        {{ order.customer.address.street }}
+        {{ order.customer.address.houseNumber }}
+      </td>
+      <td *ngIf="showStatus">
+        {{ order.status }}
+      </td>
+    </tr>
+  </tbody>
+</table>

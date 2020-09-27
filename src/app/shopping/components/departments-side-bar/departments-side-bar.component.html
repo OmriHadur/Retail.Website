@@ -1,0 +1,12 @@
+<div>
+  <div class="list-group">
+    <div
+      *ngFor="let c of departments$ | async"
+      [routerLink]="['/departments/' + c.id]"
+      class="list-group-item list-group-item-action"
+      [class.active]="selected == c.id"
+    >
+      {{ c.name }}
+    </div>
+  </div>
+</div>

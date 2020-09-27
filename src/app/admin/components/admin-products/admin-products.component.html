@@ -1,0 +1,52 @@
+<p>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New product</a>
+</p>
+
+<p>
+  <input
+    #query
+    (keyup)="filter(query.value)"
+    type="text"
+    class="form-control"
+    placeholder="search..."
+  />
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Size</th>
+      <th>Price</th>
+      <th>companyName</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+    class="tr"
+      (mouseenter)="hovered = product"
+      (mouseleave)="hovered = null"
+      *ngFor="let product; of: filtedProducts"
+    >
+      <td>{{ product.description }}</td>
+      <td>{{ product.sizeDisplay }}</td>
+      <td>{{ product.price }}</td>
+      <td>
+        {{ product.companyName }}
+      </td>
+      <td class="btnTd"> 
+        <Button
+          *ngIf="product == hovered"
+          class="btn btn-primary"
+          [routerLink]="['/admin/products/' + product.id]"
+          >Edit</Button
+        >
+        <Button
+          *ngIf="product == hovered"
+          class="btn btn-danger"
+          (click)="delete(product)"
+          >Delete</Button
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>

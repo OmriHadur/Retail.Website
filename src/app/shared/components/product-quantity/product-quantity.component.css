@@ -1,0 +1,8 @@
+.text-center {
+  align-items: center;
+  font-weight: bold;
+}
+.quantity {
+  padding-top: 7px;
+  text-align: center;
+}

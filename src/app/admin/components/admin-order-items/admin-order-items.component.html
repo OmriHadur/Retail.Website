@@ -1,0 +1,97 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center">Quantity</th>
+      <th>Product</th>
+      <th>Size</th>
+      <th class="text-right">Price</th>
+      <th class="text-right">Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      [className]="hovering == cartItem ? 'hover' : ''"
+      (mouseenter)="hovering = cartItem"
+      (mouseleave)="hovering = null"
+      *ngFor="let cartItem of order.cart.items"
+    >
+      <td class="quantityRow text-center">
+        <div
+          *ngIf="
+            cartItem.isWeighable && order.status == 'Pending';
+            else notWeighable
+          "
+        >
+          <input
+            type="number"
+            #size="ngModel"
+            [(ngModel)]="cartItem.quantity"
+            name="quantity"
+            class="quantity"
+            required
+            number
+            (focusout)="updateQuantity(cartItem)"
+            (keyup.enter)="updateQuantity(cartItem)"
+            min="1"
+            max="10000"
+          />
+        </div>
+        <ng-template #notWeighable>
+          <div class="row">
+            <div
+              class="col-3"
+              *ngIf="order.status == 'Pending' && hovering == cartItem"
+            >
+              <button
+                *ngIf="cartItem.quantity > 0"
+                (click)="removeOneFromOrder(cartItem)"
+                class="btn btn-secondary btn-block"
+              >
+                -
+              </button>
+            </div>
+            <div class="col text-center">
+              {{ cartItem.quantityDisplay }}
+            </div>
+            <div
+              class="col-3"
+              *ngIf="order.status == 'Pending' && hovering == cartItem"
+            >
+              <button
+                (click)="addOneToOrder(cartItem)"
+                class="btn btn-secondary btn-block"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </td>
+      <td>
+        {{ cartItem.description }}
+      </td>
+      <td>
+        {{ cartItem.sizeDisplay }}
+      </td>
+      <td class="text-right">
+        {{ cartItem.itemPrice.totalPrice | currency: "USD":"symbol" }}
+      </td>
+      <td class="text-right">
+        <price-display [price]="cartItem.itemPrice"></price-display>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th class="text-center">
+        {{ order.cart.quantity }}
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th class="text-right">
+        <price-display [price]="order.cart.cartPrice"></price-display>
+      </th>
+    </tr>
+  </tfoot>
+</table>

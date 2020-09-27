@@ -1,0 +1,16 @@
+.family {
+  padding-top: 50px;
+  font-weight: bold;
+}
+.seperator {
+  height: 30px;
+}
+.category {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.category:hover  {
+    text-decoration: underline;
+    text-decoration-color: blue;
+}

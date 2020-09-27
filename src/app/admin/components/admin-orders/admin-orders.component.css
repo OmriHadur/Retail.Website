@@ -1,0 +1,17 @@
+.table {
+  cursor: pointer;
+}
+.btnTd {
+  width: 250px;
+}
+.hover {
+  background-color: skyblue;
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}

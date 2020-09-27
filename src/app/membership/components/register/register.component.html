@@ -1,0 +1,88 @@
+<form #f="ngForm" class="form-signin" style="text-align: center;">
+  <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+  <input
+    type="email"
+    #email="ngModel"
+    [(ngModel)]="userCreateResource.email"
+    name="email"
+    class="form-control"
+    placeholder="Email address"
+    required
+    email
+    autofocus
+    [ngClass]="{ 'is-invalid': email.touched && email.invalid }"
+  />
+  <div class="invalid-feedback" *ngIf="email.invalid">
+    Email is required
+  </div>
+
+  <input
+    type="password"
+    #password="ngModel"
+    [(ngModel)]="userCreateResource.password"
+    name="password"
+    class="form-control"
+    placeholder="Password"
+    required
+    minlength="5"
+    [ngClass]="{ 'is-invalid': password.touched && password.invalid }"
+  />
+
+  <div class="invalid-feedback" *ngIf="password.invalid && password.touched">
+    <div *ngIf="password.errors.required">
+      Password is required.
+    </div>
+    <div *ngIf="password.errors.minlength">
+      Password must be at least 5 characters long.
+    </div>
+  </div>
+
+  <input
+    type="string"
+    #firstName="ngModel"
+    [(ngModel)]="userCreateResource.firstName"
+    name="firstName"
+    class="form-control"
+    placeholder="firstName"
+    required
+    minlength="3"
+    [ngClass]="{ 'is-invalid': firstName.touched && firstName.invalid }"
+  />
+  <div class="invalid-feedback" *ngIf="firstName.errors && firstName.touched">
+    <div *ngIf="firstName.errors.required">
+      First name is required.
+    </div>
+    <div *ngIf="firstName.errors.minlength">
+      First name must be at least 3 characters long.
+    </div>
+  </div>
+
+  <input
+    type="lastName"
+    #lastName="ngModel"
+    [(ngModel)]="userCreateResource.lastName"
+    name="lastName"
+    class="form-control"
+    placeholder="lastName"
+    minlength="3"
+    required
+    [ngClass]="{ 'is-invalid': lastName.touched && lastName.invalid }"
+  />
+  <div class="invalid-feedback" *ngIf="lastName.errors && lastName.touched">
+    <div *ngIf="lastName.errors.required">
+      Last name is required.
+    </div>
+    <div *ngIf="lastName.errors.minlength">
+      Last name must be at least 3 characters long.
+    </div>
+  </div>
+
+  <button
+    [disabled]="!f.valid"
+    class="btn btn-lg btn-primary btn-block"
+    (click)="register()"
+    type="submit"
+  >
+    Register
+  </button>
+</form>

@@ -1,0 +1,38 @@
+<h1>My Orders</h1>
+
+<div class="row">
+  <table class="table .table-striped">
+    <thead>
+      <tr>
+        <th>Time and Date</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        [className]="hovering == order ? 'hover' : ''"
+        [routerLink]="['/order/' + order.id]"
+        (mouseenter)="hovering = order"
+        (mouseleave)="hovering = null"
+        *ngFor="let order of orders$ | async"
+      >
+        <td>
+          {{ order.created | date: "dd/MM/yyyy HH:mm" }}
+        </td>
+        <td class="text-center">
+          {{ order.cart.quantity }}
+        </td>
+        <td class="text-center">
+          {{ order.cart.cartPrice.totalPrice | currency: 'USD':'symbol' }}
+        </td>
+        <td class="text-center">
+          {{ order.status }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

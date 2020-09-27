@@ -1,0 +1,8 @@
+.original-price {
+    text-decoration: line-through;
+    margin-right: 10px;
+  }
+  .sale-price {
+    color: crimson;
+  }
+  

@@ -1,0 +1,11 @@
+<div *ngIf="item.hasDiscount; else normal">
+    <div style="display: inline-block;" class="original-price">
+      {{ item.beforeDiscount | currency: 'USD':'symbol'}}
+    </div>
+    <div style="display: inline-block;" class="sale-price">
+      {{ item.totalPrice | currency: 'USD':'symbol'}}
+    </div>
+  </div>
+  <ng-template #normal>
+    {{ item.totalPrice | currency: 'USD':'symbol'}}
+  </ng-template>

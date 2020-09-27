@@ -1,0 +1,14 @@
+.hover {
+  background-color: skyblue;
+}
+
+td {
+  height: 65px;
+}
+.quantityRow{
+  width: 300px;
+}
+.quantity{
+  width: max-content;
+  text-align: center;
+}

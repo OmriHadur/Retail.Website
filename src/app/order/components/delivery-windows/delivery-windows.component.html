@@ -1,0 +1,25 @@
+<div class="row">
+  <div
+    class="list-group col-3"
+    *ngFor="let deliveryWindowGroup of deliveryWindows$ | async | keyvalue"
+  >
+    <div class="list-group-item list-group-item-info text-center">
+      {{ deliveryWindowGroup.key }}
+    </div>
+    <div
+      *ngFor="let deliveryWindow of deliveryWindowGroup.value"
+      class="list-group-flush"
+    >
+      <div
+        (click)="select(deliveryWindow)"
+        class="list-group-item list-group-item-action text-center"
+        [class.active]="selected == deliveryWindow.id"
+        [class.disabled]="
+          !deliveryWindow.isAvailable && selected != deliveryWindow.id
+        "
+      >
+        {{ deliveryWindow.fromHour }}:00 - {{ deliveryWindow.toHour }}:00
+      </div>
+    </div>
+  </div>
+</div>
